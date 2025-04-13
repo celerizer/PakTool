@@ -1,5 +1,4 @@
 #include <iostream>
-#include <boost/filesystem.hpp>
 #include "PakList.h"
 #include "StringUtil.h"
 #include "TropicalFreeze/CTropicalFreezePak.h"
@@ -7,6 +6,12 @@
 #include "PakEnum.h"
 #include "Prime/CPrimePak.h"
 #include "Corruption/CCorruptionPak.h"
+
+#include <algorithm>
+#include <cstring>
+#include <vector>
+
+#include <windows.h>
 
 enum EPakToolMode
 {
@@ -205,6 +210,10 @@ void SupportedPakLists()
               << "Trilogy....Metroid Prime: Trilogy\n";
 }
 
+void CreateDirectories(const std::string& path) {
+    CreateDirectoryA(path.c_str(), NULL); // Creates only one level
+}
+
 void ExtractQueue(std::string directory, bool handleEmbeddedCompression, EPakToolMode mode)
 {
     // Could probably cut down on redundant code by creating a CPak class
@@ -255,7 +264,7 @@ void ExtractQueue(std::string directory, bool handleEmbeddedCompression, EPakToo
             std::cout << "Version: Metroid Prime\n";
 
             CPrimePak MPPak(pak);
-            boost::filesystem::create_directories(PakOutputDir);
+            CreateDirectories(PakOutputDir);
 
             if (mode == Unpack)
             {
@@ -280,7 +289,7 @@ void ExtractQueue(std::string directory, bool handleEmbeddedCompression, EPakToo
             std::cout << "Version: Metroid Prime 3: Corruption\n";
 
             CCorruptionPak MP3Pak(pak);
-            boost::filesystem::create_directories(PakOutputDir);
+            CreateDirectories(PakOutputDir);
 
             if (mode == Unpack)
             {
@@ -311,7 +320,7 @@ void ExtractQueue(std::string directory, bool handleEmbeddedCompression, EPakToo
                 std::cout << "Version: Donkey Kong Country: Tropical Freeze\n";
 
                 CTropicalFreezePak TFPak(pak);
-                boost::filesystem::create_directories(PakOutputDir);
+                CreateDirectories(PakOutputDir);
 
                 if (mode == Unpack)
                 {

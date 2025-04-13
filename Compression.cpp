@@ -41,7 +41,7 @@ bool DecompressZlib(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out)
     else return true;
 }
 
-bool DecompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out)
+bool DecompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, unsigned long long& total_out)
 {
     lzo_init();
 
@@ -62,7 +62,8 @@ bool DecompressSegmented(CInputStream& src, u32 src_len, CMemoryOutStream& dst, 
     {
         s16 size = src.ReadShort();
         u16 type = src.PeekShort();
-        u32 total_out;
+        u32 total_out_32;
+        u64 total_out_64;
 
         if (size < 0)
         {
@@ -80,16 +81,17 @@ bool DecompressSegmented(CInputStream& src, u32 src_len, CMemoryOutStream& dst, 
 
             if ((type == 0x78DA) || (type == 0x789C) || (type == 0x7801))
             {
-                bool success = DecompressZlib(buf.data(), buf.size(), (u8*) dst.DataAtPosition(), dst_len, total_out);
+                bool success = DecompressZlib(buf.data(), buf.size(), (u8*) dst.DataAtPosition(), dst_len, total_out_32);
                 if (!success) return false;
+                dst.Seek(total_out_32, SEEK_CUR);
             }
 
             else
             {
-                bool success = DecompressLZO(buf.data(), buf.size(), (u8*) dst.DataAtPosition(), dst_len, total_out);
+                bool success = DecompressLZO(buf.data(), buf.size(), (u8*) dst.DataAtPosition(), dst_len, total_out_64);
                 if (!success) return false;
+                dst.Seek(total_out_64, SEEK_CUR);
             }
-            dst.Seek(total_out, SEEK_CUR);
         }
     }
 

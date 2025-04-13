@@ -5,7 +5,7 @@
 #include <FileIO/FileIO.h>
 
 bool DecompressZlib(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out);
-bool DecompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out);
+bool DecompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, unsigned long long& total_out);
 bool DecompressSegmented(CInputStream& src, u32 src_len, CMemoryOutStream& dst, u32 dst_len);
 
 bool CompressZlib(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out);
