@@ -9,6 +9,8 @@ DEPENDPATH += $$PWD/lzo/include
 
 SOURCES += main.cpp \
     CFourCC.cpp \
+    FileIO/CFileInStream.cpp \
+    FileIO/CMemoryInStream.cpp \
     TropicalFreeze/CTropicalFreezePak.cpp \
     StringUtil.cpp \
     Compression.cpp \

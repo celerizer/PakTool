@@ -13,6 +13,9 @@
 
 #include <windows.h>
 
+/** @todo prime is ignored for now */
+#define HAS_PRIME 0
+
 enum EPakToolMode
 {
     Unpack, Repack, ListDump
@@ -140,7 +143,7 @@ void AddPakList(EWhichGame game)
 {
     switch (game)
     {
-
+#if HAS_PRIME
         case MP1Demo:
             GlobalPakQueue.reserve(sizeof(PrimeDemoPakList) / sizeof(std::string));
             for (u32 i = 0; i < GlobalPakQueue.capacity(); i++)
@@ -188,7 +191,7 @@ void AddPakList(EWhichGame game)
             for (u32 i = 0; i < GlobalPakQueue.capacity(); i++)
                 GlobalPakQueue.push_back(DonkeyKongCountryReturnsPakList[i]);
             break;
-
+#endif
         case DKCTF:
             GlobalPakQueue.reserve(sizeof(TropicalFreezePakList) / sizeof(std::string));
             for (u32 i = 0; i < GlobalPakQueue.capacity(); i++)
@@ -259,6 +262,7 @@ void ExtractQueue(std::string directory, bool handleEmbeddedCompression, EPakToo
 
         switch (version)
         {
+#if HAS_PRIME
         case PrimePak:
         {
             std::cout << "Version: Metroid Prime\n";
@@ -308,7 +312,7 @@ void ExtractQueue(std::string directory, bool handleEmbeddedCompression, EPakToo
             std::cout << "\n";
             break;
         }
-
+#endif
         case TropicalFreezePak:
         {
             pak.Seek(0x14, SEEK_SET);
@@ -383,7 +387,7 @@ void RepackPak(EWhichGame game, ECompressMode mode, std::string FileDir, std::st
         std::cout << "Error: Unable to open list file!\n";
         return;
     }
-
+#if HAS_PRIME
     if ((game == MP1) || (game == MP2) || (game == MP1Demo) || (game == MP2Demo) || (game == MP3Proto))
     {
         CPrimePak pak;
@@ -405,6 +409,7 @@ void RepackPak(EWhichGame game, ECompressMode mode, std::string FileDir, std::st
         pak.Repack(PakOut, FileDir, game, mode);
         std::cout << "\n";
     }
+#endif
 }
 
 int main(int argc, char* argv[])

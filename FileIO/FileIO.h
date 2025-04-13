@@ -8,9 +8,14 @@
 #include "CInputStream.h"
 #include "COutputStream.h"
 
-namespace IOUtil {
-  unsigned LittleEndian = 1;
-  unsigned BigEndian = 2;
+namespace IOUtil
+{
+  enum Endianness
+  {
+    Invalid = 0,
+    LittleEndian,
+    BigEndian
+  };
 }
 
 #endif

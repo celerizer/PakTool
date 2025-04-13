@@ -130,7 +130,7 @@ bool CompressZlib(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out)
     return true;
 }
 
-bool CompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out)
+bool CompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u64& total_out)
 {
     lzo_init();
 
