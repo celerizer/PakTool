@@ -14,6 +14,7 @@ class CTropicalFreezePak
     {
         CFourCC ResType;
         SFileID_128 ID;
+        u32 Unknown; /** @todo for Harmony */
         u64 Offset;
         u64 Size;
     };

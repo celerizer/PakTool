@@ -4,6 +4,11 @@
 #include "../StringUtil.h"
 #include "../Compression.h"
 
+/** @todo This should be programmatic */
+#define IS_HARMONY 1
+
+#include <vector>
+
 CTropicalFreezePak::CTropicalFreezePak()
 {
 }
@@ -43,6 +48,9 @@ void CTropicalFreezePak::ParseADIR(CInputStream& pak)
         SDirEntry entry;
         entry.ResType = CFourCC(pak);
         entry.ID = SFileID_128(pak);
+#if IS_HARMONY
+        entry.Unknown = pak.ReadLong();
+#endif
         entry.Offset = pak.ReadLongLong();
         entry.Size = pak.ReadLongLong();
         DirEntries.push_back(entry);
