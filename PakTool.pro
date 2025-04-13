@@ -7,10 +7,18 @@ TARGET = PakTool
 INCLUDEPATH += $$PWD/lzo/include
 DEPENDPATH += $$PWD/lzo/include
 
+LIBS += -lz
+
+QMAKE_LFLAGS += -static
+
 SOURCES += main.cpp \
     CFourCC.cpp \
     FileIO/CFileInStream.cpp \
+    FileIO/CFileOutStream.cpp \
     FileIO/CMemoryInStream.cpp \
+    FileIO/CMemoryOutStream.cpp \
+    FileIO/CTextOutStream.cpp \
+    FileIO/CVectorOutStream.cpp \
     TropicalFreeze/CTropicalFreezePak.cpp \
     StringUtil.cpp \
     Compression.cpp \
@@ -20,7 +28,8 @@ SOURCES += main.cpp \
     lzo/src/lzo1x_d1.c \
     lzo/src/lzo_util.c \
     lzo/src/lzo_init.c \
-    lzo/src/lzo_ptr.c
+    lzo/src/lzo_ptr.c \
+    lzo/src/lzo1x_9x.c
 
 HEADERS += \
     types.h \

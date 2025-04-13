@@ -130,7 +130,7 @@ bool CompressZlib(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out)
     return true;
 }
 
-bool CompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u64& total_out)
+bool CompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, unsigned long long& total_out)
 {
     lzo_init();
 
@@ -208,7 +208,7 @@ bool CompressLZOSegmented(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total
         else size = 0x4000;
 
         std::vector<u8> cmp(size * 2);
-        u32 out;
+        u64 out;
 
         CompressLZO(src, size, cmp.data(), cmp.size(), out);
 

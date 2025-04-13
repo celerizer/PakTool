@@ -6,8 +6,8 @@
 class CInputStream
 {
 public:
-  CInputStream();
-  virtual ~CInputStream();
+  CInputStream() {}
+  virtual ~CInputStream() {}
 
   virtual bool IsValid(void);
 
@@ -64,7 +64,7 @@ public:
     m_Size = size;
   }
   ~CMemoryInStream() override;
-  bool IsValid(void) override;
+  bool IsValid(void) override { return m_Data; }
   long PeekLong(void) override;
   short PeekShort(void) override;
   void ReadBytes(void *data, unsigned size) override;
@@ -74,7 +74,7 @@ public:
   std::string ReadString(void) override;
   void Seek(long offset, int origin) override;
   void SeekToBoundary(long offset) override;
-  unsigned long long Tell(void) override;
+  unsigned long long Tell(void) override { return m_Position; }
 
 private:
   unsigned char *m_Data = nullptr;

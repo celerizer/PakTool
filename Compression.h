@@ -9,7 +9,7 @@ bool DecompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, unsigned long lon
 bool DecompressSegmented(CInputStream& src, u32 src_len, CMemoryOutStream& dst, u32 dst_len);
 
 bool CompressZlib(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out);
-bool CompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out);
+bool CompressLZO(u8 *src, u32 src_len, u8 *dst, u32 dst_len, unsigned long long& total_out);
 bool CompressZlibSegmented(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out, bool ensureSmaller);
 bool CompressLZOSegmented(u8 *src, u32 src_len, u8 *dst, u32 dst_len, u32& total_out, bool ensureSmaller);
 
